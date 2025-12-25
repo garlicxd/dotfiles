@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# packages/{{ .profile }}.txt hash: {{ include (joinPath "packages" (print .profile ".txt")) | sha256sum }}
+
+set -euo pipefail
+
+PACKAGE_FILE={{ joinPath .chezmoi.sourceDir "packages" (print .profile ".txt") | quote }}
+
+if [ ! -f "$PACKAGE_FILE" ]; then
+    echo "No package file found for profile: {{ .profile }}"
+    exit 0
+fi
+
+# 1. Install missing packages
+echo "Checking for missing packages..."
+desired_packages=$(cat "$PACKAGE_FILE")
+installed_packages=$(paru -Qqe)
+
+missing_packages=$(comm -23 <(echo "$desired_packages" | sort) <(echo "$installed_packages" | sort))
+
+if [ -n "$missing_packages" ]; then
+    echo "Installing missing packages:"
+    echo "$missing_packages"
+    paru -S --needed --noconfirm $missing_packages
+else
+    echo "All desired packages are installed."
+fi
+
+# 2. Cleanup extra packages
+echo "Checking for extra packages..."
+# Get leaf packages that are explicitly installed
+current_leaves=$(paru -Qttq | sort)
+desired_sorted=$(echo "$desired_packages" | sort)
+
+extra_packages=$(comm -23 <(echo "$current_leaves") <(echo "$desired_sorted"))
+
+if [ -n "$extra_packages" ]; then
+    echo "Found extra top-level packages not in the list:"
+    
+    # Store extras in an array for indexing
+    mapfile -t extra_array <<< "$extra_packages"
+    
+    for i in "${!extra_array[@]}"; do
+        echo "$((i+1)). ${extra_array[i]}"
+    done
+    
+    echo ""
+    echo "Enter package numbers to remove (space separated), '0' to remove ALL, or press Enter to skip:"
+    read -r choices
+    
+    if [ -z "$choices" ]; then
+        echo "Skipping removal."
+    elif [ "$choices" == "0" ]; then
+        echo "Removing ALL extra packages..."
+        paru -Rns --noconfirm $extra_packages
+    else
+        to_remove=()
+        for index in $choices; do
+            # Adjust 1-based index to 0-based
+            if [[ "$index" =~ ^[0-9]+$ ]] && [ "$index" -gt 0 ] && [ "$index" -le "${#extra_array[@]}" ]; then
+                to_remove+=("${extra_array[$((index-1))]}")
+            else
+                echo "Invalid index: $index"
+            fi
+        done
+        
+        if [ ${#to_remove[@]} -gt 0 ]; then
+            echo "Removing: ${to_remove[*]}"
+            paru -Rns --noconfirm "${to_remove[@]}"
+        fi
+    fi
+else
+    echo "No extra packages found."
+fi

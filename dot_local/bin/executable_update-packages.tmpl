@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -euo pipefail
+
+CHEZMOI_SOURCE_DIR={{ .chezmoi.sourceDir | quote }}
+PROFILE={{ .profile | quote }}
+PACKAGES_FILE="$CHEZMOI_SOURCE_DIR/packages/$PROFILE.txt"
+
+# Ensure directory exists
+mkdir -p "$(dirname "$PACKAGES_FILE")"
+
+# Update Package List
+echo "Updating package list for profile: $PROFILE..."
+paru -Qttq | sort > "$PACKAGES_FILE"
+
+# Git Status / Notification
+if git -C "$CHEZMOI_SOURCE_DIR" status --porcelain | grep -q "packages/$PROFILE.txt"; then
+    echo "Package changes detected."
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send "Chezmoi Auto-Save" "Package list updated for $PROFILE"
+    fi
+fi

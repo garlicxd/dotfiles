@@ -1,0 +1,14 @@
+[Unit]
+Description=Watch user systemd configuration for service changes
+
+[Path]
+# Watch the user config directory itself
+PathModified=%h/.config/systemd/user
+# Watch standard wants directories
+PathModified=%h/.config/systemd/user/default.target.wants
+PathModified=%h/.config/systemd/user/sockets.target.wants
+PathModified=%h/.config/systemd/user/timers.target.wants
+PathModified=%h/.config/systemd/user/paths.target.wants
+
+[Install]
+WantedBy=paths.target

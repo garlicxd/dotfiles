@@ -1,0 +1,7 @@
+[Unit]
+Description=Update Chezmoi Service List
+
+[Service]
+Type=oneshot
+# No significant delay needed for systemctl changes
+ExecStart=%h/.local/bin/update-services

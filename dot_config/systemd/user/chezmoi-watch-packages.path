@@ -1,0 +1,8 @@
+[Unit]
+Description=Watch pacman db for package changes
+
+[Path]
+PathModified=/var/lib/pacman/local
+
+[Install]
+WantedBy=paths.target

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -euo pipefail
+
+CHEZMOI_SOURCE_DIR={{ .chezmoi.sourceDir | quote }}
+PROFILE={{ .profile | quote }}
+SERVICES_FILE="$CHEZMOI_SOURCE_DIR/services/$PROFILE.txt"
+
+# Ensure directory exists
+mkdir -p "$(dirname "$SERVICES_FILE")"
+
+# Update Service List
+echo "Updating service list for profile: $PROFILE..."
+systemctl --user list-unit-files --state=enabled --no-legend | \
+    awk '{print $1}' | \
+    grep -vE '@\.|snapshot|socket|timer|path|slice|scope' | \
+    sort > "$SERVICES_FILE"
+
+# Git Status / Notification
+if git -C "$CHEZMOI_SOURCE_DIR" status --porcelain | grep -q "services/$PROFILE.txt"; then
+    echo "Service changes detected."
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send "Chezmoi Auto-Save" "Service list updated for $PROFILE"
+    fi
+fi

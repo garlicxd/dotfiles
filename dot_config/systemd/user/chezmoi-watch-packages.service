@@ -1,0 +1,8 @@
+[Unit]
+Description=Update Chezmoi Package List
+
+[Service]
+Type=oneshot
+# Sleep to wait for pacman locks
+ExecStartPre=/usr/bin/sleep 10
+ExecStart=%h/.local/bin/update-packages

@@ -1,0 +1,86 @@
+#!/bin/bash
+
+# services/{{ .profile }}.txt hash: {{ include (joinPath "services" (print .profile ".txt")) | sha256sum }}
+
+set -euo pipefail
+
+SERVICE_FILE={{ joinPath .chezmoi.sourceDir "services" (print .profile ".txt") | quote }}
+
+if [ ! -f "$SERVICE_FILE" ]; then
+    echo "No service file found for profile: {{ .profile }}"
+    exit 0
+fi
+
+echo "Ensuring user services are enabled..."
+
+# Read desired services into array
+mapfile -t desired_services < "$SERVICE_FILE"
+
+# 1. Enable missing services
+for service in "${desired_services[@]}"; do
+    if [ -z "$service" ]; then continue; fi
+    
+    if ! systemctl --user is-enabled --quiet "$service"; then
+        echo "Enabling $service..."
+        systemctl --user enable --now "$service"
+    fi
+done
+
+# 2. Cleanup extra services
+echo "Checking for extra enabled services..."
+
+# Get currently enabled services (excluding special types)
+enabled_services=$(systemctl --user list-unit-files --state=enabled --no-legend | \
+    awk '{print $1}' | \
+    grep -vE '@\.|snapshot|socket|timer|path|slice|scope')
+
+# Filter logic
+extras=()
+for active in $enabled_services; do
+    found=false
+    for desired in "${desired_services[@]}"; do
+        if [ "$active" == "$desired" ]; then
+            found=true
+            break
+        fi
+    done
+    
+    if [ "$found" = false ]; then
+        extras+=("$active")
+    fi
+done
+
+if [ ${#extras[@]} -gt 0 ]; then
+    echo "Found extra enabled services not in the list:"
+    
+    for i in "${!extras[@]}"; do
+        echo "$((i+1)). ${extras[i]}"
+    done
+    
+    echo ""
+    echo "Enter service numbers to DISABLE (space separated), '0' to disable ALL, or press Enter to skip:"
+    read -r choices
+    
+    if [ -z "$choices" ]; then
+        echo "Skipping disable."
+    elif [ "$choices" == "0" ]; then
+        echo "Disabling ALL extra services..."
+        systemctl --user disable --now "${extras[@]}"
+    else
+        to_disable=()
+        for index in $choices; do
+            if [[ "$index" =~ ^[0-9]+$ ]] && [ "$index" -gt 0 ] && [ "$index" -le "${#extras[@]}" ]; then
+                to_disable+=("${extras[$((index-1))]}")
+            else
+                echo "Invalid index: $index"
+            fi
+        done
+        
+        if [ ${#to_disable[@]} -gt 0 ]; then
+            echo "Disabling: ${to_disable[*]}"
+            systemctl --user disable --now "${to_disable[@]}"
+        fi
+    fi
+else
+    echo "No extra services enabled."
+fi

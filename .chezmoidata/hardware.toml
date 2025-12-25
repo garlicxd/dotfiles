@@ -1,0 +1,27 @@
+# Hardware database (per-profile)
+# This file is intentionally read by Niri/DMS templates so machine-specific monitor configuration
+# is kept in data rather than template logic.
+
+[butterfly]
+# laptop display
+[[butterfly.monitors]]
+name = "eDP-1"
+scale = 1.0
+# mode omitted -> auto
+
+[garden]
+# desktop with two monitors
+[[garden.monitors]]
+name = "HDMI-A-1"
+mode = "1920x1080@100"
+scale = 1.0
+
+[[garden.monitors]]
+name = "DP-1"
+mode = "2560x1440@120"
+scale = 2.0
+orientation = "vertical"
+
+# Notes:
+# - Niri templates should look up `.hardware` (or include this file via .chezmoi.data) and
+#   iterate the `monitors` table for the active `profile`.
