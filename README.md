@@ -23,7 +23,17 @@ The configuration adapts based on the `profile` defined in `~/.config/chezmoi/ch
 
 ## Scripts
 
-These scripts are installed to `~/.local/bin/` and handle the "Backup" side of the loop.
+These scripts are installed to `~/.local/bin/`.
+
+
+### `scrape-machine.sh`
+*   **Location**: `~/.local/bin/scrape-machine.sh`
+*   **Purpose**: Generates a TOML configuration snippet for the current machine's hardware.
+*   **Usage**: Run it to see the detected Monitors (Niri), CPU, and GPU capabilities (CUDA/ROCm/XPU - only WIP).
+    ```bash
+    scrape-machine.sh
+    ```
+*   **Workflow**: Use the output to update `.chezmoidata/hardware.toml` when setting up a new machine or changing hardware.
 
 ### `update-packages`
 *   **Purpose**: Backs up current system packages to `packages/<profile>.txt`.
@@ -61,16 +71,3 @@ These scripts run automatically during `chezmoi apply` to enforce the "Restore/S
 ### `run_once_after_99-enable-watcher.sh`
 *   **Trigger**: Runs once (or when script changes).
 *   **Action**: Installs, enables, and starts the systemd watchers mentioned above, ensuring the automation loop is active.
-
----
-
-## Hardware Recon
-
-### `scrape-machine.sh`
-*   **Location**: `~/.local/bin/scrape-machine.sh`
-*   **Purpose**: Generates a TOML configuration snippet for the current machine's hardware.
-*   **Usage**: Run it to see the detected Monitors (Niri), CPU, and GPU capabilities (CUDA/ROCm/XPU).
-    ```bash
-    scrape-machine.sh
-    ```
-*   **Workflow**: Use the output to update `.chezmoidata/hardware.toml` when setting up a new machine or changing hardware.
