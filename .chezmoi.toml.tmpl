@@ -9,11 +9,12 @@
 {{- $profile := promptStringOnce . "profile" "Which machine profile are you configuring? (butterfly/garden)" "butterfly" -}}
 {{- $hasBattery := or (stat "/sys/class/power_supply/BAT0") (stat "/sys/class/power_supply/BAT1") (stat "/sys/class/power_supply/BAT") -}}
 
+encryption = "age"
+
+[age]
+    identity = "~/.config/chezmoi/key.txt"
+    recipients = ["age1q3zeqpem8ekgmrgcpj84x4f488gn99tf3af3n005nqwrlh7mpumsa6tfq8"]
+
 [data]
 profile = {{ $profile | quote }}
 has_battery = {{ if $hasBattery }}true{{ else }}false{{ end }}
-
-# Notes:
-# - This template is executed during `chezmoi init --apply` and writes the above values to your ~/.config/chezmoi/chezmoi.toml as [data].
-# - The `has_battery` value is auto-detected from /sys/class/power_supply and does not prompt the user.
-# - Modify defaults above if you prefer different initial values.

@@ -1,0 +1,25 @@
+[config]
+
+[templates.niri]
+input_path = '~/.config/matugen/templates/niri-colors.kdl'
+output_path = '~/.config/niri/dms/colors.kdl'
+
+[templates.code_insiders_default]
+input_path = '~/.config/matugen/templates/codium-dank16.json'
+output_path = '~/.vscode-insiders/extensions/local.dynamic-base16-dankshell-0.0.1/themes/dankshell-default.json'
+
+[templates.antigravity_default]
+input_path = '~/.config/matugen/templates/codium-dank16.json'
+output_path = '~/.antigravity/extensions/local.dynamic-base16-dankshell-0.0.1/themes/dankshell-default.json'
+
+[templates.ghostty]
+input_path = '~/.config/matugen/templates/ghostty-dank16.conf'
+output_path = '~/.config/ghostty/config-dankcolors'
+
+[templates.vesktop]
+input_path = '~/.config/matugen/templates/vesktop-dank16.css'
+output_path = '~/.config/vesktop/themes/dank-colors.css'
+
+[templates.obsidian_bonsai]
+input_path = '~/.config/matugen/templates/obsidian-dank16.css'
+output_path = '~/Documents/bonsai/.obsidian/snippets/dank-colors.css'

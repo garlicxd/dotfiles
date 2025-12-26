@@ -10,3 +10,8 @@ alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 
 . "$HOME/.local/bin/env"
+
+# Gnome Keyring Integration
+if [ -n "$XDG_RUNTIME_DIR" ]; then
+    export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
+fi

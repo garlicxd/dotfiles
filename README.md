@@ -3,6 +3,8 @@
 This repository manages my dotfiles and system configuration state using [Chezmoi](https://www.chezmoi.io/).
 It features a self-healing architecture that automatically backs up installed packages and enabled services, ensuring my system is always reproducible.
 
+[Download Wallpaper Here](https://www.dropbox.com/s/vl49u8dypw99y51/disco_elysium_high_res.jpg?dl=0).
+
 ## Profiles & specs
 
 The configuration adapts based on the `profile` defined in `~/.config/chezmoi/chezmoi.toml`.
