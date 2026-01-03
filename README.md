@@ -18,25 +18,6 @@ The configuration adapts based on the `profile` defined in `~/.config/chezmoi/ch
 *   **Hardware DB**: `.chezmoidata/hardware.toml` (Monitor configs per profile).
 *   **Package Lists**: `packages/<profile>.txt` (List of parabolic/pacman packages).
 *   **Service Lists**: `services/<profile>.txt` (List of enabled user systemd services).
-*   **Keyrings**: `~/.local/share/keyrings/` (Encrypted with `age` via chezmoi).
-
----
-
-## Security & Secrets
-
-Sensitive files like GNOME Keyrings are managed using chezmoi's built-in encryption.
-
-*   **Encryption**: [age](https://github.com/FiloSottile/age)
-*   **Key Location**: `~/.config/chezmoi/key.txt` (Not tracked in git)
-*   **Managed Secrets**:
-    *   `Default_keyring.keyring`
-    *   `user.keystore`
-    *   `default` (symlink target)
-
-To add new secrets:
-```bash
-chezmoi add --encrypt <path-to-secret>
-```
 
 ---
 

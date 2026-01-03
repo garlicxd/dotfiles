@@ -9,6 +9,8 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 
+export PAGER=cat
+
 . "$HOME/.local/bin/env"
 
 # Gnome Keyring Integration

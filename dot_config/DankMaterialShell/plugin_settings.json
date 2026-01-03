@@ -1,0 +1,17 @@
+{
+  "dankBatteryAlerts": {
+    "enabled": true
+  },
+  "calculator": {
+    "enabled": true
+  },
+  "emojiLauncher": {
+    "enabled": true
+  },
+  "niriWindows": {
+    "enabled": true
+  },
+  "webSearch": {
+    "enabled": true
+  }
+}

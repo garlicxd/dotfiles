@@ -1,0 +1,7 @@
+[Unit]
+Description=Snapshot Chezmoi state
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/sleep 10
+ExecStart=%h/.local/bin/update-chezmoi-state

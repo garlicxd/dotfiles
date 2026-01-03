@@ -8,6 +8,7 @@
 
 {{- $profile := promptStringOnce . "profile" "Which machine profile are you configuring? (butterfly/garden)" "butterfly" -}}
 {{- $hasBattery := or (stat "/sys/class/power_supply/BAT0") (stat "/sys/class/power_supply/BAT1") (stat "/sys/class/power_supply/BAT") -}}
+{{- $ageKey := promptStringOnce . "ageKey" "Enter your age private key" -}}
 
 encryption = "age"
 
@@ -18,3 +19,4 @@ encryption = "age"
 [data]
 profile = {{ $profile | quote }}
 has_battery = {{ if $hasBattery }}true{{ else }}false{{ end }}
+agekey = {{ $ageKey | quote }}

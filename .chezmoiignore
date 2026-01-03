@@ -1,0 +1,4 @@
+# Ignore systemd symlink directories
+.config/systemd/user/*.wants
+.config/systemd/user/*.d
+.config/systemd/user/sockets.target.wants

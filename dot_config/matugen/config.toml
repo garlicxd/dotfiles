@@ -19,7 +19,3 @@ output_path = '~/.config/ghostty/config-dankcolors'
 [templates.vesktop]
 input_path = '~/.config/matugen/templates/vesktop-dank16.css'
 output_path = '~/.config/vesktop/themes/dank-colors.css'
-
-[templates.obsidian_bonsai]
-input_path = '~/.config/matugen/templates/obsidian-dank16.css'
-output_path = '~/Documents/bonsai/.obsidian/snippets/dank-colors.css'
