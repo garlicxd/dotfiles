@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+niri msg output DP-1 on
+niri msg output HDMI-A-1 on

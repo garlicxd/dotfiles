@@ -1,0 +1,32 @@
+{
+    "apps": [
+        {
+            "image-path": "desktop.png",
+            "name": "Desktop"
+        },
+        {
+            "auto-detach": true,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "desktop.png",
+            "name": "Dual Desktop",
+            "prep-cmd": [
+                {
+                    "do": "~/.config/sunshine/sunshine-display-dual",
+                    "undo": "~/.config/sunshine/sunshine-display-local"
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "image-path": "desktop.png",
+            "name": "Remote Desktop",
+            "prep-cmd": [
+                {
+                    "do": "~/.config/sunshine/sunshine-display-remote",
+                    "undo": "~/.config/sunshine/sunshine-display-local"
+                }
+            ]
+        }
+    ]
+}

@@ -2,3 +2,8 @@
 .config/systemd/user/*.wants
 .config/systemd/user/*.d
 .config/systemd/user/sockets.target.wants
+
+{{ if ne .profile "garden" }}
+.config/sunshine
+.config/sunshine/**
+{{ end }}

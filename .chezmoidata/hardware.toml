@@ -13,14 +13,14 @@ scale = 1.0
 # desktop with two monitors
 [[garden.monitors]]
 name = "HDMI-A-1"
-mode = "1920x1080@100"
+mode = "1920x1080@100.047"
 scale = 1.0
 
 [[garden.monitors]]
 name = "DP-1"
-mode = "2560x1440@120"
+mode = "2560x1440@119.963"
 scale = 2.0
-orientation = "vertical"
+transform = "90"
 
 # Notes:
 # - Niri templates should look up `.hardware` (or include this file via .chezmoi.data) and
