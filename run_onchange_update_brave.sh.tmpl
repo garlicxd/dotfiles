@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# 1. Watch for changes in the managed.json file
+# hash: {{ include "dot_config/brave-policies/managed.json" | sha256sum }}
+
+# 2. Define Paths
+# Source: The file inside your actual home directory
+SOURCE_PATH="{{ .chezmoi.homeDir }}/.config/brave-policies/managed.json"
+
+# Destination: The system location where Brave looks for policies
+DEST_PATH="/etc/brave/policies/managed/managed.json"
+
+# 3. Call the generic deploy script
+# We use the absolute path to ensure reliability
+{{ .chezmoi.homeDir }}/.local/bin/deploy-config "$SOURCE_PATH" "$DEST_PATH"

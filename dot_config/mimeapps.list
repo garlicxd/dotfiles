@@ -1,8 +1,8 @@
 [Default Applications]
-x-scheme-handler/http=zen.desktop
-x-scheme-handler/https=zen.desktop
+x-scheme-handler/http=brave-browser.desktop
+x-scheme-handler/https=brave-browser.desktop
 x-scheme-handler/chrome=zen.desktop
-text/html=zen.desktop
+text/html=brave-browser.desktop
 application/x-extension-htm=zen.desktop
 application/x-extension-html=zen.desktop
 application/x-extension-shtml=zen.desktop
@@ -11,8 +11,8 @@ application/x-extension-xhtml=zen.desktop
 application/x-extension-xht=zen.desktop
 inode/directory=nautilus.desktop
 x-scheme-handler/discord=vesktop.desktop
-x-scheme-handler/about=dms-open.desktop
-x-scheme-handler/unknown=dms-open.desktop
+x-scheme-handler/about=brave-browser.desktop
+x-scheme-handler/unknown=brave-browser.desktop
 
 [Added Associations]
 x-scheme-handler/http=zen.desktop;

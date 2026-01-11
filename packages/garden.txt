@@ -13,6 +13,7 @@ bind
 bluez
 bluez-hid2hci
 bluez-utils
+brave-bin
 btop
 btrfs-assistant
 cachyos-gaming-applications
@@ -90,10 +91,10 @@ modemmanager
 mpv
 mtools
 nano-syntax-highlighting
-nautilus
 netctl
 networkmanager
 networkmanager-openvpn
+nexusmods-app-bin
 nfs-utils
 nilfs-utils
 ninja
@@ -106,6 +107,7 @@ ntfs-3g
 ntp
 obsidian
 octopi
+openssl-1.1
 os-prober
 paru
 pavucontrol
@@ -115,6 +117,7 @@ pkgfile
 plocate
 power-profiles-daemon
 profile-sync-daemon
+protonup-qt
 pv
 python-wxpython
 qt6ct
@@ -124,6 +127,7 @@ sg3_utils
 smartmontools
 s-nail
 sof-firmware
+stremio-service-bin
 sunshine
 tailscale
 ttf-meslo-nerd

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Usage: deploy-config <SOURCE_PATH> <DEST_PATH>
+SOURCE="$1"
+DEST="$2"
+
+# 1. Validation
+if [ -z "$SOURCE" ] || [ -z "$DEST" ]; then
+    echo "Error: Missing arguments."
+    echo "Usage: deploy-config <source> <destination>"
+    exit 1
+fi
+
+if [ ! -f "$SOURCE" ]; then
+    echo "Error: Source file not found at $SOURCE"
+    exit 1
+fi
+
+echo "Deploying System Config..."
+echo "  Source: $SOURCE"
+echo "  Dest:   $DEST"
+
+# 2. Prepare Destination Directory
+DEST_DIR=$(dirname "$DEST")
+if [ ! -d "$DEST_DIR" ]; then
+    echo "  -> Creating directory: $DEST_DIR"
+    sudo mkdir -p "$DEST_DIR"
+fi
+
+# 3. Copy and Set Permissions
+sudo cp "$SOURCE" "$DEST"
+sudo chmod 644 "$DEST"
+# Ensure root ownership for security
+sudo chown root:root "$DEST"
+
+echo "  -> Success."

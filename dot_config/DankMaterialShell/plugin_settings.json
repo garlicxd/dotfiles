@@ -13,5 +13,24 @@
   },
   "webSearch": {
     "enabled": true
+  },
+  "tailscale": {
+    "enabled": false
+  },
+  "dockerManager": {
+    "enabled": true
+  },
+  "displayManager": {
+    "enabled": false,
+    "brightness_HDMI-A-1": 32.63639856557377
+  },
+  "dankPomodoroTimer": {
+    "enabled": true
+  },
+  "dankLauncherKeys": {
+    "enabled": true
+  },
+  "displaySettings": {
+    "enabled": false
   }
 }

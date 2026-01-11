@@ -81,7 +81,7 @@ layout {
     // Positioning (gaps are in dms/layout.kdl)
 
 
-    center-focused-column "always"
+    // center-focused-column "always"
     preset-column-widths {
         proportion 0.33333
         proportion 0.5
@@ -142,13 +142,6 @@ animations {
 }
 
 // === Window Rules ===
-// WezTerm
-window-rule {
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
-    draw-border-with-background false
-}
-
 // Nautilus
 window-rule {
     match app-id=r#"^nautilus$"#
@@ -179,7 +172,14 @@ window-rule {
     match app-id="zen"
     match app-id="com.mitchellh.ghostty"
     match app-id="kitty"
+    default-column-width { proportion 0.5; }
     draw-border-with-background false
+}
+
+// Discord / Vesktop / Vencord — half-width
+window-rule {
+    match app-id=r#"^(?:discord|com\.discordapp\.Discord|vesktop|vencord|steam|com\.valvesoftware\.Steam|org\.valvesoftware\.Steam|obsidian|com\.obsidian\.Obsidian)$"#
+    default-column-width { proportion 0.5; }
 }
 
 // Inactive opacity
